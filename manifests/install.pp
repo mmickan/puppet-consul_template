@@ -2,9 +2,6 @@
 #
 class consul_template::install {
 
-  User<| |> -> File<| |>
-  Group<| |> -> File<| |>
-
   if $consul_template::data_dir {
     file { $consul_template::data_dir:
       ensure => 'directory',
@@ -12,6 +9,8 @@ class consul_template::install {
       group  => $consul_template::group,
       mode   => '0755',
     }
+    Group<| title = $consul_template::group |> -> File[$consul_template::data_dir]
+    User<| title = $consul_template::user |> -> File[$consul_template::data_dir]
   }
 
   if $consul_template::install_method == 'url' {
