@@ -15,6 +15,7 @@ define consul_template::watch (
       ensure  => present,
       content => template($template),
       before  => Concat::Fragment["${name}.ctmpl"],
+      notify  => Service['consul-template'],
     }
   }
   concat::fragment { "${name}.ctmpl":
