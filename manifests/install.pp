@@ -9,8 +9,8 @@ class consul_template::install {
       group  => $consul_template::group,
       mode   => '0755',
     }
-    Group<| title == $consul_template::group |> -> File[$consul_template::data_dir]
-    User<| title == $consul_template::user |> -> File[$consul_template::data_dir]
+    User <| title == $consul_template::user |> -> File[$consul_template::data_dir]
+    Group <| title == $consul_template::group |> -> File[$consul_template::data_dir]
   }
 
   if $consul_template::install_method == 'url' {
