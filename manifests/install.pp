@@ -17,7 +17,7 @@ class consul_template::install {
 
     include staging
     if $::operatingsystem != 'darwin' {
-      ensure_packages(['tar'])
+      ensure_packages(['unzip'])
     }
     staging::file { "consul-template_${consul_template::version}.${consul_template::download_extension}":
       source => $consul_template::real_download_url,
@@ -28,7 +28,7 @@ class consul_template::install {
     staging::extract { "consul-template_${consul_template::version}.${consul_template::download_extension}":
       target  => "${::staging::path}/consul-template-${consul_template::version}",
       creates => "${::staging::path}/consul-template-${consul_template::version}/consul-template",
-      strip   => 1,
+      require => Package['unzip'],
     } ->
     file {
       "${::staging::path}/consul-template-${consul_template::version}/consul-template":
