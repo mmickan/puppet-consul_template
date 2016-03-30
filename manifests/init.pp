@@ -59,10 +59,10 @@
 #   Name of a group to use for dir and file perms. Defaults to consul-template.
 #
 # [*manage_user*]
-#   User is managed by this module. Defaults to `false`.
+#   User is managed by this module. Defaults to `true`.
 #
 # [*manage_group*]
-#   Group is managed by this module. Defaults to `false`.
+#   Group is managed by this module. Defaults to `true`.
 
 class consul_template (
   $purge_config_dir   = true,

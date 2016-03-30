@@ -14,11 +14,12 @@ describe 'consul_template class' do
       apply_manifest(pp, :catch_changes  => true)
     end
 
-    describe package('consul_template') do
-      it { is_expected.to be_installed }
+    describe file('/usr/local/bin/consul-template') do
+      it { is_expected.to be_symlink }
+      it { is_expected.to be_linked_to '/opt/staging/consul-template-0.14.0/consul-template' }
     end
 
-    describe service('consul_template') do
+    describe service('consul-template') do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
     end
